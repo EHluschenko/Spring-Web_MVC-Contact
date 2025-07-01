@@ -1,5 +1,6 @@
 package ed.hluschenko.config;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,5 +54,15 @@ public HibernateTransactionManager getTransactionManager(){
     transactionManager.setSessionFactory(sessionFactory().getObject());
     return transactionManager;
 }
+
+    @Bean(initMethod = "migrate") // triggers flyway.migrate() on startup
+    public Flyway flyway(DataSource dataSource) {
+        return Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:db/migration")
+                .baselineOnMigrate(true)  // You must add this line if your DB is not empty
+                .load();
+    }
+
 
 }

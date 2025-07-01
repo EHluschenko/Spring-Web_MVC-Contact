@@ -39,12 +39,6 @@ model.addAttribute("title", "Contacts");
         return "layout";
 }
 
-//@RequestMapping(value = "/add-contact", method= RequestMethod.POST)
-//public RedirectView addContact(@ModelAttribute ContactDtoRequest request){
-//RedirectView redirectView = new RedirectView("./contacts");
-//if(service.create(request))
-//    return redirectView;
-//     else return redirectView;}
 
     @RequestMapping(value = "/add-contact", method = RequestMethod.POST)
     public RedirectView addContact(@ModelAttribute ContactDtoRequest request){
@@ -61,26 +55,12 @@ model.addAttribute("fragmentName", "contact-update");
 return "layout";
 }
 
-//@RequestMapping(value = "/change-contact", method=RequestMethod.POST)
-//public RedirectView changeContact(@ModelAttribute ContactDtoRequest request) {
-//    RedirectView redirectView = new RedirectView("./contacts");
-//    if (service.update(request.id(), request))
-//        return redirectView;
-//    else return redirectView;}
-
     @RequestMapping(value = "/change-contact", method=RequestMethod.POST)
     public RedirectView changeContact(@ModelAttribute ContactDtoRequest request){
         service.update(request.id(), request);
         return new RedirectView("./contacts");
     }
 
-
-//@RequestMapping("/delete-contact/{id}")
-//    public RedirectView deleteContact(@PathVariable("id") Long id){
-//RedirectView redirectView = new RedirectView("../contacts");
-//if(service.delete(id)) return redirectView;
-//else return redirectView;
-//}
 
     @RequestMapping("/delete-contact/{id}")
     public RedirectView deleteContact(@PathVariable("id") Long id){
